@@ -1,5 +1,6 @@
 import face_recognition as fr
 import cv2
+import os
 
 # This is a demo of running face recognition on live video from your webcam. It's a little more complicated than the
 # other example, but it includes some basic performance tweaks to make things run a lot faster:
@@ -13,53 +14,17 @@ import cv2
 # Get a reference to webcam #0 (the default one)
 video_capture = cv2.VideoCapture(0)
 
+known_faces = [];
+
+known_names = [];
+
 # Load a sample picture and learn how to recognize it.
 
-known_faces = [
-    fr.face_encodings(fr.load_image_file('pierce-wolcott-wisetail-lms.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-chris.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-evan.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-jill.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-juniper.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-kati.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-moriah.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-pierce.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-rachael-h.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-company-stevey.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-glenn-veil.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-joe-sweeney.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-jon-edwards.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-lucas-barbula.jpg'))[0],
-    fr.face_encodings(fr.load_image_file('wisetail-lms-steve-johnston-1.jpg'))[0],
-
-]
-
-known_names = [
-    'Pierce Wolcott',
-    'Chris Gibson',
-    'Evan Koehler',
-    'Jill Martin',
-    'Juniper Emnett',
-    'Kati Lueth',
-    'Moriah Ellig',
-    'Pierce Trey',
-    'Rachael Harlow',
-    'Stevey Still',
-    'Glenn Veil',
-    'Joe Sweeney',
-    'Jon Edwards',
-    'Lucas Barbula',
-    'Steven Johnston'
-]
-
-# Load a second sample picture and learn how to recognize it.
-matt_image = fr.load_image_file("matt.jpg")
-matt_face_encoding = fr.face_encodings(matt_image)[0]
-
-# Create arrays of known face encodings and their names
-#known_faces.append(matt_face_encoding)
-
-#known_names.append("Matt Goldsworthy")
+for root, dirs, files in os.walk("."):
+    for filename in files:
+        if ".jpg" in filename:
+            known_faces.append(fr.face_encodings(fr.load_image_file(filename))[0])
+            known_names.append(filename);
 
 # Initialize some variables
 face_locations = []
