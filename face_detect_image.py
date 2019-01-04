@@ -2,7 +2,7 @@ import face_recognition
 import json
 from PIL import Image, ImageDraw
 
-image = face_recognition.load_image_file("multi.jpg")
+image = face_recognition.load_image_file("wisetail-lms-glenn-veil.jpg")
 face_locations = face_recognition.face_locations(image)
 
 all_locations = []
@@ -14,7 +14,7 @@ width = 5
 for (top, right, bottom, left) in face_locations:
     all_locations.append([top, right, bottom, left])
 
-    # Crop image out (save to CDN for recognition later?
+    # Crop image out (save to CDN for recognition later?)
     #face_image = image[top:bottom, left:right]
     #pil_image = Image.fromarray(face_image)
     #pil_image.show()
